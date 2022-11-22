@@ -150,7 +150,7 @@ public class proje1 {
                 }
                 // Set number back to default
                 number = 1;
-            } else if (input.charAt(i) >= 49 && input.charAt(i) <= 57) { // If the character is a digit(Digits' ASCII codes are between 48(0) and 57(9)
+            } else if (input.charAt(i) >= 49 && input.charAt(i) <= 57) { // If the character is a digit(Digits' ASCII codes are between 48(0) and 57(9))
                 // Set the number to specified digit
                 // This is done through modifying ASCII codes. Subtracting 48 from the digit's ASCII code returns the digit itself
                 number = input.charAt(i) - 48;
