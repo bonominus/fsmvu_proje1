@@ -150,9 +150,7 @@ public class proje1 {
                 }
                 // Set number back to default
                 number = 1;
-            } else if (input.charAt(i) == '1' || input.charAt(i) == '2' || input.charAt(i) == '3' ||
-                       input.charAt(i) == '4' || input.charAt(i) == '5' || input.charAt(i) == '6' ||
-                       input.charAt(i) == '7' || input.charAt(i) == '8' || input.charAt(i) == '9') { // If the character is a digit
+            } else if (input.charAt(i) >= 49 && input.charAt(i) <= 57) { // If the character is a digit(Digits' ASCII codes are between 48(0) and 57(9)
                 // Set the number to specified digit
                 // This is done through modifying ASCII codes. Subtracting 48 from the digit's ASCII code returns the digit itself
                 number = input.charAt(i) - 48;
@@ -174,8 +172,8 @@ public class proje1 {
         // Check if the first letter is lowercase
         if (input.charAt(0) >= 97 && input.charAt(0) <= 122) {
             // If the first letter is lowercase, convert it to uppercase and pass it to new string
-            // This is done by modifying ASCII codes. Subtracting 32 from ASCII code returns the letter's lowercase form
-            new_string += (char) (input.charAt(0) - 32);
+            // This is done by modifying ASCII codes. Subtracting 32 from ASCII code returns the letter's uppercase form
+            new_string += (char)(input.charAt(0) - 32);
         } else {
             // If the letter is uppercase, pass it to the new string as is
             new_string += (char)(input.charAt(0));
@@ -183,18 +181,19 @@ public class proje1 {
         // Setting for loop up so that invalid memory is not accessed
         // Loop starts from second index since first letter is already worked on
         for (int i = 1; i < input.length(); i++) {
-            // Check if the character at input[i] is a space and the next character is valid memory
-            if (input.charAt(i) == 32 && ((i + 1) < input.length())) {
-                // If the conditions are met, check if the letter is lowercase
-                   if (input.charAt(i + 1) <= 122 && input.charAt(i + 1) >= 97) {
-                       // First, add a space to the string
-                       new_string += ' ';
-                       // Then, convert the next letter to lowercase and add it to the string
-                       new_string += (char) (input.charAt(i + 1) - 32);
-                   } else if (input.charAt(i) <= 90 && input.charAt(i) >= 65) {
-                       // If the letter is uppercase, add it to the string as is
-                       new_string += input.charAt(i);
-                   }
+            // Check if the character at input[i] is a space
+            if (input.charAt(i) == 32) {
+                new_string += ' '; // Add space to the string
+                if ((i + 1) < input.length()) { // If next character is valid
+                    // Check if the letter is lowercase
+                    if (input.charAt(i + 1) <= 122 && input.charAt(i + 1) >= 97) {
+                        // Then, convert the next letter to uppercase and add it to the string
+                        new_string += (char) (input.charAt(i + 1) - 32);
+                    } else if (input.charAt(i) <= 90 && input.charAt(i) >= 65) {
+                        // If the letter is uppercase, add it to the string as is
+                        new_string += input.charAt(i);
+                    }
+                }
             } else if ((input.charAt(i) >= 97 && input.charAt(i) <= 122)){ // If the letter is lowercase
                 if (input.charAt(i - 1) != 32) { // Check if the character before input[i] is space
                     // If not, add the character to the new string
@@ -311,20 +310,19 @@ public class proje1 {
             // This line calculates one half of the character. The " - 1" is for the middle star which prints only one
             // in the middle.
             int half = (boyut - 1) / 2;
-            for (int u = 0; u < half; u++) { // Iterating the upper half
-                // Calculating middle space so it can have enough size to fit all the stars printed below in while
-                // being decreased by 2 in every iteration
-                int middle_space = ((half - u) * 2) - 1;
-                // Space on the left of first star starts from 0 to one lesser of the half we calculated as seen from
-                // the example in the project paper, so it is appropriate to define it like this
-                int left_space = u;
-
+            // Space on the left of first star starts from 0 to one lesser of the half we calculated as seen from
+            // the example in the project paper, so it is appropriate to define it like this
+            for (int left_space = 0; left_space < half; left_space++) { // Iterating the upper half
 
                 for (int j = 0; j < left_space; j++) { // Printing the leftmost space
                     System.out.print(" ");
                 }
 
                 System.out.print("*"); // Printing the left star
+
+                // Calculating middle space so it can have enough size to fit all the stars printed below in while
+                // being decreased by 2 in every iteration
+                int middle_space = ((half - left_space) * 2) - 1;
 
                 for (int k = 0; k < middle_space; k++) { // Printing the space between two stars
                     System.out.print(" ");
@@ -341,13 +339,12 @@ public class proje1 {
 
             for (int b = 0; b < half; b++) { // Iterating the bottom half
                 int left_space = half - (b + 1); // This time, leftmost space decreases by each iteration
-                int middle_space = ((half - left_space) * 2) - 1; // Middle space increases as opposite to upper half
-
                 for (int l = 0; l < left_space; l++) { // Printing the leftmost space
                     System.out.print(" ");
                 }
                 System.out.print("*"); // Printing the left star
 
+                int middle_space = ((half - left_space) * 2) - 1; // Middle space increases as opposite to upper half
                 for (int m = 0; m < middle_space; m++) { // Printing the middle space
                     System.out.print(" ");
                 }
